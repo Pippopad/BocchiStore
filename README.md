@@ -9,5 +9,5 @@ Categories      (CategoryId, Name)
 BookCategories  (BookId, CategoryId)
 Users           (UserId, Username, Name, Surname, PasswordHash, Phone?, IsAdmin)
 Loans           (BookId, UserId, StartDate, EndDate?)
-Reviews         (ReviewId, Title, Description, Score)
+Reviews         (ReviewId, Title, Description, Score, BookId, UserId)
 ```
