@@ -1,4 +1,6 @@
-﻿using System.Data.SqlClient;
+﻿using BocchiStore.Models;
+using Dapper;
+using System.Data.SqlClient;
 
 namespace BocchiStore.Services
 {
@@ -9,6 +11,11 @@ namespace BocchiStore.Services
         public DapperStorage()
         {
             _connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BocchiStore;Integrated Security=True;Connect Timeout=30;Encrypt=False");
+        }
+
+        public IEnumerable<BookModel> GetBooks()
+        {
+            return _connection.Query<BookModel>("SELECT * FROM Books");
         }
     }
 }
