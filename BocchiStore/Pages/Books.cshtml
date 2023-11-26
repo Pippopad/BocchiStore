@@ -1,4 +1,4 @@
-﻿@page "/books"
+﻿@page
 @model BocchiStore.Pages.BooksModel
 @{
     ViewData["Title"] = "Libri";
@@ -9,10 +9,10 @@
 <div class="container row gap-2 w-100 h-100">
     @foreach (var book in Model.Books)
     {
-        <div class="card col-4">
-            <div class="row g-0">
-                <div class="col-xl-5">
-                    <img src="@(book.CoverImage == null ? "/img/no_book_cover.png" : book.CoverImage)" class="img-fluid rounded-start border-end" alt="...">
+        <div class="card col-4 p-0">
+            <div class="row g-0 h-100">
+                <div class="col-xl-5 border-end border-2 p-2" style="background-color: #eee">
+                    <img src="@(book.CoverImage == null ? "/img/no_book_cover.png" : book.CoverImage)" class="img-fluid h-100" style="border-radius: 0.6rem;" alt="...">
                 </div>
                 <div class="col-md-7" style="min-height: 200px">
                     <div class="card-body">
