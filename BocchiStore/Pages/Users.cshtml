@@ -1,0 +1,30 @@
+﻿@page
+@model BocchiStore.Pages.UsersModel
+@{
+    ViewData["Title"] = "Iscritti";
+}
+
+<h1>Utenti iscritti</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Username</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            @if (user.IsAdmin) continue;
+            <tr>
+                <th>@user.UserId</th>
+                <td>@user.Name</td>
+                <td>@user.Surname</td>
+                <td>@user.Username</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

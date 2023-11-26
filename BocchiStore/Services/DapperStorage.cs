@@ -17,5 +17,10 @@ namespace BocchiStore.Services
         {
             return _connection.Query<BookModel>("SELECT * FROM Books");
         }
+
+        public IEnumerable<UserModel> GetUsers()
+        {
+            return _connection.Query<UserModel>("SELECT * FROM Users");
+        }
     }
 }
