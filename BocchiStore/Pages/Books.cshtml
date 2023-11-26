@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "/Books"
 @model BocchiStore.Pages.BooksModel
 @{
     ViewData["Title"] = "Libri";
@@ -15,10 +15,13 @@
                     <img src="@(book.CoverImage == null ? "/img/no_book_cover.png" : book.CoverImage)" class="img-fluid h-100" style="border-radius: 0.6rem;" alt="...">
                 </div>
                 <div class="col-md-7" style="min-height: 200px">
-                    <div class="card-body">
+                    <div class="card-body h-100">
                         <h5 class="card-title">@(book.Title.Length > 40 ? book.Title.Substring(0, 40 - 3) + "..." : book.Title)</h5>
                         <p class="card-text">@book.Description</p>
-                        <p class="card-text" style="bottom: 5px; position: absolute; right: 5px"><small class="text-success fw-bold">Available</small></p>
+                        <div class="d-flex align-items-end position-absolute" style="bottom: 5px;">
+                            <a class="btn btn-primary" asp-page="BookDetails" asp-route-id="@book.BookId">Visualizza</a>
+                            <p class="card-text"><small class="text-success fw-bold">Available</small></p>
+                        </div>
                     </div>
                 </div>
             </div>

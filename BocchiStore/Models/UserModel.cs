@@ -10,7 +10,7 @@
         public string? Phone { get; set; }
         public bool IsAdmin { get; set; }
 
-        public List<Loan> Loans { get; set; }
+        public List<LoanModel> Loans { get; set; }
         public List<ReviewModel> Reviews { get; set; }
     }
 }
