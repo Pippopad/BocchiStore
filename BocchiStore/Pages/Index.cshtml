@@ -4,7 +4,31 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="row">
+        <h1>Top 3 Lettori</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Numero libri letti</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Top3Users)
+                {
+                    <tr>
+                        <th>@user.UserId</th>
+                        <td>@user.User.Username</td>
+                        <td>@user.BookCount</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <hr />
+        <h1>Coming soon...</h1>
+    </div>
 </div>

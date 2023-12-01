@@ -1,20 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BocchiStore.Models;
+using BocchiStore.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BocchiStore.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly IStorage _storage;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(IStorage storage)
         {
-            _logger = logger;
+            _storage = storage;
         }
 
         public void OnGet()
         {
-
         }
+
+        public List<Top3User> Top3Users => _storage.GetTop3Users().ToList();
     }
 }
