@@ -32,6 +32,20 @@ namespace BocchiStore.Services
             return top3Users;
         }
 
+        public IEnumerable<TopBook> GetTopBooks()
+        {
+            var _topBooks = _connection.Query<TopBook>("SELECT Loans.BookId, COUNT(Loans.BookId) AS 'Loans' FROM Loans GROUP BY Loans.BookId ORDER BY Loans DESC").ToList();
+            List<TopBook> topBooks = new List<TopBook>();
+            foreach (var tb in _topBooks)
+                topBooks.Add(new TopBook()
+                {
+                    BookId = tb.BookId,
+                    Loans = tb.Loans,
+                    Book = _connection.Query<BookModel>($"SELECT * FROM Books WHERE Books.BookId={tb.BookId}").First()
+                });
+            return topBooks;
+        }
+
         public IEnumerable<UserModel> GetUsers()
         {
             return _connection.Query<UserModel>("SELECT * FROM Users");

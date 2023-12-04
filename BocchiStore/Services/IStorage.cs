@@ -8,5 +8,6 @@ namespace BocchiStore.Services
         public IEnumerable<BookModel> GetBooks();
         public IEnumerable<UserModel> GetUsers();
         public IEnumerable<Top3User> GetTop3Users();
+        public IEnumerable<TopBook> GetTopBooks();
     }
 }

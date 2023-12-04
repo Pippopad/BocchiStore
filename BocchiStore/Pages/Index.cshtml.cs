@@ -19,5 +19,6 @@ namespace BocchiStore.Pages
         }
 
         public List<Top3User> Top3Users => _storage.GetTop3Users().ToList();
+        public List<TopBook> TopBooks => _storage.GetTopBooks().ToList();
     }
 }

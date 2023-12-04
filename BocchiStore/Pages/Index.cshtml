@@ -28,7 +28,25 @@
         </table>
     </div>
     <div class="row">
-        <hr />
-        <h1>Coming soon...</h1>
+        <h1>Best Seller</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Titolo</th>
+                    <th>Prestiti</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model.TopBooks)
+                {
+                    <tr>
+                        <th>@book.BookId</th>
+                        <td>@book.Book.Title</td>
+                        <td>@book.Loans</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
