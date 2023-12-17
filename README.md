@@ -5,9 +5,9 @@
 ## Schema logico
 ```
 Books           (BookId, Title, Description?, CoverImage?)
-Categories      (CategoryId, Name)
-BookCategories  (BookId, CategoryId)
-Users           (UserId, Username, Name, Surname, PasswordHash, Phone?, IsAdmin)
+Users           (UserId, Username, Name, Surname, Phone?)
 Loans           (BookId, UserId, StartDate, EndDate?)
-Reviews         (ReviewId, Title, Description, Score, BookId, UserId)
 ```
+
+
+>N.B: Questo progetto è stato realizzato in modo "rozzo" quindi si prega di non usarlo come riferimento per altri progetti.
