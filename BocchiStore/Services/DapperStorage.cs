@@ -18,9 +18,24 @@ namespace BocchiStore.Services
             return _connection.Query<BookModel>("SELECT * FROM Books");
         }
 
+        public IEnumerable<LoanOnGoingModel> GetLoansOnGoing()
+        {
+            var query = _connection.Query<LoanModel>("SELECT * FROM Loans WHERE EndDate IS NULL");
+
+            List<LoanOnGoingModel> loans = new List<LoanOnGoingModel>();
+            foreach (var q in query) loans.Add(new LoanOnGoingModel()
+            {
+                StartDate = q.StartDate,
+                User = _connection.Query<UserModel>("SELECT * FROM Users WHERE UserIf").First(),
+                Book = _connection.Query<BookModel>("SELECT * ").First(),
+            });
+
+            return loans;
+        }
+
         public IEnumerable<Top3User> GetTop3Users()
         {
-            var _top3Users = _connection.Query<Top3User>("SELECT Loans.UserId, COUNT(DISTINCT Loans.BookId) AS 'BookCount' FROM Loans GROUP BY Loans.UserId ORDER BY BookCount DESC").ToList();
+            var _top3Users = _connection.Query<Top3User>("SELECT TOP 3 Loans.UserId, COUNT(DISTINCT Loans.BookId) AS 'BookCount' FROM Loans GROUP BY Loans.UserId ORDER BY BookCount DESC").ToList();
             List<Top3User> top3Users = new List<Top3User>();
             foreach (var t3u in _top3Users)
                 top3Users.Add(new Top3User()

@@ -1,0 +1,29 @@
+﻿@page
+@model BocchiStore.Pages.LoansOnGoingModel
+@{
+    ViewData["Title"] = "Libri non rientrati";
+}
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Utente</th>
+                <th>Libro</th>
+                <th>Data inizio</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var l in Model.Loans)
+            {
+            <tr>
+                <th>@l.UserId</th>
+                <td>Lorenzo Pascale (Pippopad)</td>
+                <td>@l.BookId</td>
+                <td>@l.StartDate</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
