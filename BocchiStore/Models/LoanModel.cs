@@ -5,7 +5,7 @@ namespace BocchiStore.Models
     public struct LoanOnGoingModel
     {
         public BookModel Book { get; set; }
-        public UsersModel User { get; set; }
+        public UserModel User { get; set; }
         public DateTime StartDate { get; set; }
     }
 

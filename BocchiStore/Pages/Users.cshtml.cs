@@ -19,5 +19,10 @@ namespace BocchiStore.Pages
         }
 
         public List<UserModel> Users => _storage.GetUsers().ToList();
+
+        public static implicit operator UsersModel?(UserModel? v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

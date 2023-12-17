@@ -5,19 +5,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BocchiStore.Pages
 {
-    public class LoansOnGoingModel : PageModel
+    public class AvailableBooksModel : PageModel
     {
         private readonly IStorage _storage;
 
-        public LoansOnGoingModel(IStorage storage)
+        public AvailableBooksModel(IStorage storage)
         {
             _storage = storage;
         }
-
         public void OnGet()
         {
         }
 
-        public List<LoanOnGoingModel> Loans => _storage.GetLoansOnGoing().ToList();
+        public List<BookModel> Books => _storage.GetAvailableBooks().ToList();
     }
 }

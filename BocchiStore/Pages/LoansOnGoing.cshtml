@@ -18,9 +18,9 @@
             @foreach (var l in Model.Loans)
             {
             <tr>
-                <th>@l.UserId</th>
-                <td>Lorenzo Pascale (Pippopad)</td>
-                <td>@l.BookId</td>
+                <th>@l.User.UserId</th>
+                <td>@l.User.Name @l.User.Surname (@l.User.Username)</td>
+                <td>@l.Book.Title</td>
                 <td>@l.StartDate</td>
             </tr>
             }

@@ -18,17 +18,23 @@ namespace BocchiStore.Services
             return _connection.Query<BookModel>("SELECT * FROM Books");
         }
 
+        public IEnumerable<BookModel> GetAvailableBooks()
+        {
+            return _connection.Query<BookModel>("SELECT * FROM Books WHERE Books.BookId NOT IN (SELECT b.BookId FROM Books b INNER JOIN Loans ON Books.BookId = Loans.BookId WHERE Loans.EndDate IS NULL)");
+        }
+
         public IEnumerable<LoanOnGoingModel> GetLoansOnGoing()
         {
             var query = _connection.Query<LoanModel>("SELECT * FROM Loans WHERE EndDate IS NULL");
 
             List<LoanOnGoingModel> loans = new List<LoanOnGoingModel>();
-            foreach (var q in query) loans.Add(new LoanOnGoingModel()
-            {
-                StartDate = q.StartDate,
-                User = _connection.Query<UserModel>("SELECT * FROM Users WHERE UserIf").First(),
-                Book = _connection.Query<BookModel>("SELECT * ").First(),
-            });
+            foreach (var q in query)
+                loans.Add(new LoanOnGoingModel()
+                {
+                    StartDate = q.StartDate,
+                    User = _connection.Query<UserModel>("SELECT * FROM Users WHERE Users.UserId=" + q.UserId).First(),
+                    Book = _connection.Query<BookModel>("SELECT * FROM Books WHERE Books.BookId=" + q.BookId).First(),
+                });
 
             return loans;
         }
