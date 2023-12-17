@@ -10,9 +10,7 @@ CREATE TABLE Users (
   Username VARCHAR(64) NOT NULL,
   Name VARCHAR(256) NOT NULL,
   Surname VARCHAR(256) NOT NULL,
-  PasswordHash VARCHAR(512) NOT NULL,
   Phone VARCHAR(15) NULL,
-  IsAdmin BIT NOT NULL
 );
 
 CREATE TABLE Loans (
