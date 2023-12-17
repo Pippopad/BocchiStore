@@ -1,7 +1,11 @@
+using BocchiStore.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddScoped<IStorage, DapperStorage>();
 
 var app = builder.Build();
 

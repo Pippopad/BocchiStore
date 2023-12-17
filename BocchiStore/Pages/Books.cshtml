@@ -1,0 +1,26 @@
+﻿@page
+@model BocchiStore.Pages.BooksModel
+@{
+    ViewData["Title"] = "Libri";
+}
+
+
+<h1>Libri</h1>
+<div class="container row w-100 h-100 p-0">
+    @foreach (var book in Model.Books)
+    {
+        <div class="card col-4 p-0 m-0">
+            <div class="row g-0 h-100">
+                <div class="col-xl-5 border-end border-2 p-2" style="background-color: #eee">
+                    <img src="@(book.CoverImage == null ? "/img/no_book_cover.png" : book.CoverImage)" class="img-fluid h-100" style="border-radius: 0.6rem;" alt="...">
+                </div>
+                <div class="col-md-7" style="min-height: 200px">
+                    <div class="card-body h-100">
+                        <h5 class="card-title">@(book.Title.Length > 40 ? book.Title.Substring(0, 40 - 3) + "..." : book.Title)</h5>
+                        <p class="card-text">@book.Description</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
