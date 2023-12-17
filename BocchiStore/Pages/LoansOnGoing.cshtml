@@ -21,7 +21,7 @@
                 <th>@l.User.UserId</th>
                 <td>@l.User.Name @l.User.Surname (@l.User.Username)</td>
                 <td>@l.Book.Title</td>
-                <td>@l.StartDate</td>
+                <td>@l.StartDate.ToShortDateString()</td>
             </tr>
             }
         </tbody>

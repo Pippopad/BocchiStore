@@ -1,0 +1,32 @@
+﻿@page
+@model BocchiStore.Pages.LoansMore15DaysModel
+@{
+	ViewData["Title"] = "Prestiti superiori ai 15 giorni";
+}
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Utente</th>
+                <th>Libro</th>
+                <th>Data inizio</th>
+                <th>Data fine</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var l in Model.Loans)
+            {
+                <tr>
+                    <th>@l.User.UserId</th>
+                    <td>@l.User.Name @l.User.Surname (@l.User.Username)</td>
+                    <td>@l.Book.Title</td>
+                    <td>@l.StartDate.ToShortDateString()</td>
+                    <td>@(l.EndDate == null ? "Non rientrato" : l.EndDate?.ToShortDateString())</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

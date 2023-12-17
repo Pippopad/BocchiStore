@@ -39,6 +39,23 @@ namespace BocchiStore.Services
             return loans;
         }
 
+        public IEnumerable<LoanMore15Days> GetLoansMore15Days()
+        {
+            var query = _connection.Query<LoanModel>("SELECT * FROM Loans WHERE (EndDate IS NULL AND DATEDIFF(DAY, StartDate, GETDATE()) > 15) OR (EndDate IS NOT NULL AND DATEDIFF(DAY, StartDate, EndDate) > 15)");
+
+            List<LoanMore15Days> loans = new List<LoanMore15Days>();
+            foreach (var q in query)
+                loans.Add(new LoanMore15Days()
+                {
+                    StartDate = q.StartDate,
+                    EndDate = q.EndDate,
+                    User = _connection.Query<UserModel>("SELECT * FROM Users WHERE Users.UserId=" + q.UserId).First(),
+                    Book = _connection.Query<BookModel>("SELECT * FROM Books WHERE Books.BookId=" + q.BookId).First(),
+                });
+
+            return loans;
+        }
+
         public IEnumerable<Top3User> GetTop3Users()
         {
             var _top3Users = _connection.Query<Top3User>("SELECT TOP 3 Loans.UserId, COUNT(DISTINCT Loans.BookId) AS 'BookCount' FROM Loans GROUP BY Loans.UserId ORDER BY BookCount DESC").ToList();
