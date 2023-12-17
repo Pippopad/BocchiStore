@@ -23,13 +23,13 @@ namespace BocchiStore.Services
             return _connection.Query<BookModel>("SELECT * FROM Books WHERE Books.BookId NOT IN (SELECT b.BookId FROM Books b INNER JOIN Loans ON Books.BookId = Loans.BookId WHERE Loans.EndDate IS NULL)");
         }
 
-        public IEnumerable<LoanOnGoingModel> GetLoansOnGoing()
+        public IEnumerable<LoanModelFull> GetLoansOnGoing()
         {
             var query = _connection.Query<LoanModel>("SELECT * FROM Loans WHERE EndDate IS NULL");
 
-            List<LoanOnGoingModel> loans = new List<LoanOnGoingModel>();
+            List<LoanModelFull> loans = new List<LoanModelFull>();
             foreach (var q in query)
-                loans.Add(new LoanOnGoingModel()
+                loans.Add(new LoanModelFull()
                 {
                     StartDate = q.StartDate,
                     User = _connection.Query<UserModel>("SELECT * FROM Users WHERE Users.UserId=" + q.UserId).First(),
@@ -39,13 +39,13 @@ namespace BocchiStore.Services
             return loans;
         }
 
-        public IEnumerable<LoanMore15Days> GetLoansMore15Days()
+        public IEnumerable<LoanModelFull> GetLoansMore15Days()
         {
             var query = _connection.Query<LoanModel>("SELECT * FROM Loans WHERE (EndDate IS NULL AND DATEDIFF(DAY, StartDate, GETDATE()) > 15) OR (EndDate IS NOT NULL AND DATEDIFF(DAY, StartDate, EndDate) > 15)");
 
-            List<LoanMore15Days> loans = new List<LoanMore15Days>();
+            List<LoanModelFull> loans = new List<LoanModelFull>();
             foreach (var q in query)
-                loans.Add(new LoanMore15Days()
+                loans.Add(new LoanModelFull()
                 {
                     StartDate = q.StartDate,
                     EndDate = q.EndDate,
@@ -88,5 +88,27 @@ namespace BocchiStore.Services
         {
             return _connection.Query<UserModel>("SELECT * FROM Users");
         }
-    }
+
+		public UserModel? GetUser(int id)
+        {
+            return _connection.Query<UserModel>("SELECT * FROM Users WHERE UserId=" + id).SingleOrDefault();
+		}
+
+		public IEnumerable<LoanModelFull> GetLoansByUserId(int id)
+        {
+			var query = _connection.Query<LoanModel>("SELECT * FROM Loans WHERE UserId=" + id + " ORDER BY StartDate DESC");
+
+			List<LoanModelFull> loans = new List<LoanModelFull>();
+			foreach (var q in query)
+				loans.Add(new LoanModelFull()
+				{
+					StartDate = q.StartDate,
+					EndDate = q.EndDate,
+					User = _connection.Query<UserModel>("SELECT * FROM Users WHERE Users.UserId=" + q.UserId).First(),
+					Book = _connection.Query<BookModel>("SELECT * FROM Books WHERE Books.BookId=" + q.BookId).First(),
+				});
+
+			return loans;
+		}
+	}
 }

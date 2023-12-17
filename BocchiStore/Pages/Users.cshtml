@@ -17,12 +17,13 @@
     <tbody>
         @foreach (var user in Model.Users)
         {
-            @if (user.IsAdmin) continue;
             <tr>
                 <th>@user.UserId</th>
                 <td>@user.Name</td>
                 <td>@user.Surname</td>
-                <td>@user.Username</td>
+                <td>
+                    <a asp-page="ViewUser" asp-route-id="@user.UserId">@user.Username</a>
+                </td>
             </tr>
         }
     </tbody>

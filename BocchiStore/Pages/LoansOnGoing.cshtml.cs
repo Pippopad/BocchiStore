@@ -18,6 +18,6 @@ namespace BocchiStore.Pages
         {
         }
 
-        public List<LoanOnGoingModel> Loans => _storage.GetLoansOnGoing().ToList();
+        public List<LoanModelFull> Loans => _storage.GetLoansOnGoing().ToList();
     }
 }

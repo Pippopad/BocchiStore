@@ -1,0 +1,52 @@
+﻿@page "/ViewUser/{id:int}"
+@model BocchiStore.Pages.ViewUserModel
+@{
+	ViewData["Title"] = "Visualizza utente";
+}
+
+@if (Model.SelectedUser == null)
+{
+	<h1 class="text-center">Utente non trovato</h1>
+}
+else
+{
+	<div class="d-flex flex-column align-items-center w-100">
+		<div>
+			<label>ID: @Model.SelectedUser.UserId</label>
+		</div>
+		<div>
+			<label>Nome: @Model.SelectedUser.Name</label>
+		</div>
+		<div>
+			<label>Cognome: @Model.SelectedUser.Surname</label>
+		</div>
+		<div>
+			<label>Username: @Model.SelectedUser.Username</label>
+		</div>
+		<div>
+			<label>Telefono: @(Model.SelectedUser.Phone ?? "Non presente")</label>
+		</div>
+
+		<table class="table mt-5">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Titolo</th>
+					<th>Inizio prestito</th>
+					<th>Fine prestito</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var l in Model.Loans)
+				{
+					<tr>
+						<td>@l.Book.BookId</td>
+						<td>@l.Book.Title</td>
+						<td>@l.StartDate.ToShortDateString()</td>
+						<td>@(l.EndDate == null ? "Non rientrato" : l.EndDate?.ToShortDateString())</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+}
